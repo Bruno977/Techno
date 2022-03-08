@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main id="app">
+      <div class="modal" v-if="produto">
+        <div class="modal-content">
+          <img :src="produto.img" :alt="produto.nome" srcset="" />
+          <div class="container-descricao">
+            <div class="descricao-produto">
+              <p v-if="produto.preco">{{produto.preco | formataPreco}}</p>
+              <h1>{{produto.nome}}</h1>
+              <p>{{produto.descricao}}</p>
+              <button>Produto Esgotado</button>
+            </div>
+
+            <ul>
+              <li v-for="review in produto.reviews">
+                <p>{{review.nome}}</p>
+                <p>{{review.estrelas}}</p>
+                <p>{{review.descricao}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <ul class="container">
+        <li
+          v-for="item in produtos"
+          @click="fetchProduct(item.id)"
+          :key="item.id"
+        >
+          <div class="container-produto">
+            <img :src="item.img" :alt="item.nome" />
+            <div class="description-products">
+              <p>{{item.preco | formataPreco }}</p>
+              <h1>{{item.nome}}</h1>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </main>
+    <script src="./app.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
