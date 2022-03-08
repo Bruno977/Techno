@@ -13,21 +13,25 @@
       <div class="modal" v-if="produto">
         <div class="modal-content">
           <img :src="produto.img" :alt="produto.nome" srcset="" />
-          <div class="container-descricao">
-            <div class="descricao-produto">
+          <div class="container-description">
+            <span class="close-modal" @click="produto = false">X</span>
+            <div class="description-product">
               <p v-if="produto.preco">{{produto.preco | formataPreco}}</p>
               <h1>{{produto.nome}}</h1>
               <p>{{produto.descricao}}</p>
               <button>Produto Esgotado</button>
             </div>
-
-            <ul>
-              <li v-for="review in produto.reviews">
-                <p>{{review.nome}}</p>
-                <p>{{review.estrelas}}</p>
-                <p>{{review.descricao}}</p>
-              </li>
-            </ul>
+            <div>
+              <h1 class="title-assessments">Avaliações</h1>
+              <ul>
+                <li v-for="review in produto.reviews" class="list-assessments">
+                  <p class="description">{{review.descricao}}</p>
+                  <p class="name-stars">
+                    {{review.nome}} | {{review.estrelas}} estrelas
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +41,7 @@
           @click="fetchProduct(item.id)"
           :key="item.id"
         >
-          <div class="container-produto">
+          <div class="container-product">
             <img :src="item.img" :alt="item.nome" />
             <div class="description-products">
               <p>{{item.preco | formataPreco }}</p>
