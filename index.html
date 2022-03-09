@@ -10,7 +10,34 @@
   </head>
   <body>
     <main id="app">
-      <div class="modal" v-if="produto">
+      <header>
+        <img src="./assets/techno.svg" alt="Logo" />
+        <div @click="carrinhoAtivo = true">
+          <span>{{carrinhoTotal | formataPreco}}</span> |
+          <span> {{carrinho.length}}</span>
+          <img src="./assets/carrinho.svg" alt="Carrinho" />
+        </div>
+      </header>
+      <div class="cart" :class="{ativo: carrinhoAtivo}" @click="closeModal">
+        <div class="cart-container">
+          <div class="close-modal" @click="carrinhoAtivo = false">X</div>
+          <h1>Carrinho</h1>
+          <ul>
+            <li v-for="item, index in carrinho">
+              <div>{{item.nome}}</div>
+              <div class="cart-price">
+                <span v-if="item.preco">{{item.preco | formataPreco}}</span>
+                <button class="remove-item" @click="removeItemCart(index)">
+                  X
+                </button>
+              </div>
+            </li>
+          </ul>
+          <div class="cart-total">{{carrinhoTotal | formataPreco}}</div>
+          <button class="finish-request">Finalizar Pedido</button>
+        </div>
+      </div>
+      <div class="modal" v-if="produto" @click="closeModal">
         <div class="modal-content">
           <img :src="produto.img" :alt="produto.nome" srcset="" />
           <div class="container-description">
@@ -19,7 +46,12 @@
               <p v-if="produto.preco">{{produto.preco | formataPreco}}</p>
               <h1>{{produto.nome}}</h1>
               <p>{{produto.descricao}}</p>
-              <button>Produto Esgotado</button>
+              <button v-if="produto.estoque > 0" @click="addItemCart">
+                Adiciona Produto
+              </button>
+              <button v-else class="disabled-button" disabled>
+                Produto Esgotado
+              </button>
             </div>
             <div>
               <h1 class="title-assessments">Avaliações</h1>
@@ -50,6 +82,9 @@
           </div>
         </li>
       </ul>
+      <div class="Alert" :class="{ativo: alertaAtivo}">
+        <span> {{mensagemAlerta}} </span>
+      </div>
     </main>
     <script src="./app.js"></script>
     <script src="./script.js"></script>
