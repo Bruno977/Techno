@@ -234,3 +234,43 @@ header span:last-of-type {
     margin-top: 15px;
 }
 /*Carrinho*/
+@media (max-width: 768px) {
+    body {
+        background: #ddd;
+    }
+    #app {
+        padding: 20px;
+    }
+    .container-product {
+        flex-direction: column;
+        background-color: #fff;
+        padding: 20px;
+    }
+    .description-products {
+        margin-left: 0;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .container-product img {
+        max-width: 250px;
+    }
+
+    .modal-content {
+        background: #fff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: absolute;
+    }
+    .description-product {
+        margin-top: 10px;
+    }
+    .modal-content img {
+        max-width: 250px;
+    }
+
+    .cart-container {
+        max-width: calc(100% - 30px);
+    }
+}

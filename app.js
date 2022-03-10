@@ -38,6 +38,14 @@ const vm = new Vue({
       const json = await response.json();
       this.produto = json;
     },
+    openModal(id) {
+      this.fetchProduct(id);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
     closeModal({ target, currentTarget }) {
       if (target === currentTarget) {
         this.produto = false;
@@ -58,6 +66,10 @@ const vm = new Vue({
         this.carrinho = JSON.parse(window.localStorage.carrinho);
       }
     },
+    compareStock() {
+      const items = this.carrinho.filter(({ id }) => id === this.produto.id);
+      this.produto.estoque -= items.length;
+    },
     alert(mensagem) {
       this.mensagemAlerta = mensagem;
       this.alertaAtivo = true;
@@ -75,6 +87,7 @@ const vm = new Vue({
       document.title = this.produto.nome || "Techno";
       const hash = this.produto.id || "";
       history.pushState(null, null, `#${hash}`);
+      this.compareStock();
     },
     carrinho() {
       window.localStorage.carrinho = JSON.stringify(this.carrinho);

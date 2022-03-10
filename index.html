@@ -68,11 +68,7 @@
         </div>
       </div>
       <ul class="container">
-        <li
-          v-for="item in produtos"
-          @click="fetchProduct(item.id)"
-          :key="item.id"
-        >
+        <li v-for="item in produtos" @click="openModal(item.id)" :key="item.id">
           <div class="container-product">
             <img :src="item.img" :alt="item.nome" />
             <div class="description-products">
